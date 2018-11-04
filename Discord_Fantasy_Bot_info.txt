@@ -1,0 +1,15 @@
+Discord Fantay Bot
+
+USING OUTPUT=JSON:
+By default the Yahoo! Web Services return output in XML format. To get output in JSON format, use the output=json parameter in the request:
+exammple: http://search.yahooapis.com/ImageSearchService/V1/imageSearch?appid=YahooDemo&query=Madonna&output=json
+
+The format for requesting a Resource will typically look like:
+https://fantasysports.yahooapis.com/fantasy/v2/{resource}/{resource_key}
+
+While the format for requesting a Collection will typically look like:
+https://fantasysports.yahooapis.com/fantasy/v2/{collection};{resource}_keys={resource_key1},{resource_key2}
+
+NBA URI's
+http://data.nba.net/10s/prod/v1/2018/players.json
+http://data.nba.net/10s/prod/v1/today.json

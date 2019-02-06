@@ -1,0 +1,19 @@
+{
+  "name": "nba-discord-bot",
+  "version": "1.0.0",
+  "description": "Chick Hearn NBA fantasy discord bot",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Laturine/nba-discord-bot.git"
+  },
+  "author": "JC, WH, GB, MC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Laturine/nba-discord-bot/issues"
+  },
+  "homepage": "https://github.com/Laturine/nba-discord-bot#readme"
+}

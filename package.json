@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/Laturine/nba-discord-bot/issues"
   },
-  "homepage": "https://github.com/Laturine/nba-discord-bot#readme"
+  "homepage": "https://github.com/Laturine/nba-discord-bot#readme",
+  "dependencies": {
+    "discord.js": "^11.4.2",
+    "node-fetch": "^2.3.0",
+    "oauth20-provider": "^0.6.0"
+  }
 }

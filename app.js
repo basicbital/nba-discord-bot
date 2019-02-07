@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const fetch = require('node-fetch');
+const nbaUtil = require('./util/nbaUtils.js')
 
 client.on("message", message => {
 	
@@ -29,11 +30,14 @@ client.on("message", message => {
 				return res.json();
 			})
 			.then(response => {
-				console.log(response.league);
+				console.log(response.league.standard);
+				nbaData = response.league.standard
+				console.log(nbaUtil.getTeamId(nbaData, "LeBron", "James"))
 			})
 			.catch(err => {
 				console.log(`${err} Parse that json better boi`);
 			})
+		
 	}
 })
 

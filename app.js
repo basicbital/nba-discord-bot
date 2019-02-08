@@ -1,7 +1,8 @@
 const Discord = require('discord.js');
-const client = new Discord.Client();
 const fetch = require('node-fetch');
 const nbaUtil = require('./util/nbaUtils.js')
+
+const client = new Discord.Client();
 
 client.on("message", message => {
 	
@@ -38,6 +39,9 @@ client.on("message", message => {
 				console.log(`${err} Parse that json better boi`);
 			})
 		
+	}
+	if (message.content === 'days') {
+		message.channel.send(nbaUtil.getDaysOfWeek());
 	}
 })
 

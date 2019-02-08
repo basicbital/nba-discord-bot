@@ -10,3 +10,13 @@ module.exports.getTeamId = function (data, firstName, lastName) {
     })
     return returnValue
 }
+
+module.exports.getCurrentMonday = function() {
+    const DAY_IN_MILLISEC = 86400000;
+    const today = new Date();
+    const dayOfWeek = today.getDay();
+    const date = today.getDate();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+
+}

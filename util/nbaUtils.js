@@ -1,6 +1,6 @@
 
 // data is array (for now)
-// TODO: Investigate optimization in searching algorithm (Gabe: '.every' function)
+/// TODO: Investigate optimization in searching algorithm (Gabe: '.every' function)
 getTeamId = function (data, firstName, lastName) {
     let returnValue = 0
     data.forEach(player => {
@@ -8,7 +8,7 @@ getTeamId = function (data, firstName, lastName) {
             returnValue =  player.teamId
         }
     })
-    return returnValue
+    return returnValue;
 }
 
 /**

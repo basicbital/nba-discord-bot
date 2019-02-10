@@ -1,7 +1,7 @@
 
 // data is array (for now)
 // TODO: Investigate optimization in searching algorithm (Gabe: '.every' function)
-module.exports.getTeamId = function (data, firstName, lastName) {
+getTeamId = function (data, firstName, lastName) {
     let returnValue = 0
     data.forEach(player => {
         if (player.firstName === firstName && player.lastName === lastName) {
@@ -11,12 +11,22 @@ module.exports.getTeamId = function (data, firstName, lastName) {
     return returnValue
 }
 
-module.exports.getCurrentMonday = function() {
-    const DAY_IN_MILLISEC = 86400000;
-    const today = new Date();
-    const dayOfWeek = today.getDay();
-    const date = today.getDate();
-    const month = today.getMonth();
-    const year = today.getFullYear();
-
+/**
+ * @param {Object[]} data JSON object of team games
+ * @param {string[]} daysInWeek 7 sequential days always starting on Monday
+ * @return {number} games played for given team in given week
+ */
+getGamesInWeek = function(data, daysInWeek) {
+    let gamesPlayed = 0;
+    data.forEach(game => {
+        // logic to search all games
+        let gameDate = game.startDateEastern
+        if (gameDate >= daysInWeek[0] && gameDate <= daysInWeek[6]){
+            gamesPlayed += 1;
+        }
+    })
+    return gamesPlayed;
 }
+
+module.exports.getGamesInWeek = getGamesInWeek;
+module.exports.getTeamId = getTeamId;

@@ -24,29 +24,20 @@ client.on("message", message => {
 			.catch(err => {
 				console.log('We done goofed fam');
 			})
-	}
+	} 
 	if (message.content === 'player') {
-		// fetch('http://data.nba.net/10s/prod/v1/2018/players.json')
-		// 	.then(res => {
-		// 		return res.json();
-		// 	})
-		// 	.then(response => {
-		// 		console.log(response.league.standard);
-		// 		nbaData = response.league.standard
-		// 		console.log(nbaUtil.getTeamId(nbaData, "LeBron", "James"))
-		// 	})
-		// 	.catch(err => {
-		// 		console.log(`${err} Parse that json better boi`);
-		// 	})
-		let firstName = "Lebron";
-		let lastName = "James";
-		console.log(typeof(nbaData.getPlayers()));
-		//console.log(nbaData.getTeamSchedule(nbaUtil.getTeamId(data, firstName, lastName)));
-
-		
+		let firstName = "Quinn";
+		let lastName = "Cook";
+		nbaData.getPlayers().then(
+			resp =>{
+				let teamId = nbaUtil.getTeamId(resp, firstName, lastName);
+				nbaData.getTeamSchedule(teamId).then(resp => console.log(resp));
+			}
+		);
 
 
 	}
 })
 
 client.login(process.env.YAHOO_TOKEN);
+

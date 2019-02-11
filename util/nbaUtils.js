@@ -8,7 +8,7 @@ getTeamId = function (data, firstName, lastName) {
             returnValue =  player.teamId
         }
     })
-    return returnValue;
+    return returnValue;    
 }
 
 /**

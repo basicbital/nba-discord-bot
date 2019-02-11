@@ -14,14 +14,13 @@ getTeamId = function (data, firstName, lastName) {
 }
 
 getCurrentMonday = function() {
-    let easternTime = moment_timezone().tz('America/New_York');
-    let monDate = (moment(easternTime).day("Monday"));
+    const easternTime = moment_timezone().tz('America/New_York');
+    const monDate = (moment(easternTime).day("Monday"));
   
     return monDate;
   }
   
-getDaysOfWeek = function() {
-    let monDate = getCurrentMonday();
+getDaysOfWeek = function(monDate) {
     let daysOfWeek = [];
 
     for(let i = 0; i < 7; ++i) {
@@ -34,4 +33,5 @@ getDaysOfWeek = function() {
 }
 
 module.exports.getTeamId = getTeamId;
+module.exports.getCurrentMonday = getCurrentMonday;
 module.exports.getDaysOfWeek = getDaysOfWeek;

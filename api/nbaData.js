@@ -1,3 +1,4 @@
+const fetch = require('node-fetch');
 /**
  * @return {Promise<pending>} All nba players
  */

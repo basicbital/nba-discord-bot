@@ -20,13 +20,20 @@ getTeamId = function (data, firstName, lastName) {
     return returnValue
 }
 
+/**
+ * @return {moment} date of Monday from current week
+ */
 getCurrentMonday = function() {
     const easternTime = moment_timezone().tz('America/New_York');
     const monDate = (moment(easternTime).day("Monday"));
   
     return monDate;
   }
-  
+
+/**
+ * @param {moment} monDate date of Monday
+ * @return {number[]} 7 dates of current week starting on Monday
+ */
 getDaysOfWeek = function(monDate) {
     let daysOfWeek = [];
 
@@ -35,7 +42,6 @@ getDaysOfWeek = function(monDate) {
         daysOfWeek.push(addDate.format("YYYYMMDD"));
         addDate = monDate.add(1, "days");
     }
-
     return daysOfWeek;
 }
 

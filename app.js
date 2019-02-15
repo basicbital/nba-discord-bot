@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const nbaUtil = require('./util/nbaUtils.js')
 const nbaData = require('./api/nbaData.js')
+const yahooData = require('./api/yahooData')
 
 const client = new Discord.Client();
 
@@ -28,4 +29,4 @@ client.on("message", message => {
 	}
 })
 
-client.login(process.env.YAHOO_TOKEN);
+client.login(process.env.DISCORD_TOKEN);

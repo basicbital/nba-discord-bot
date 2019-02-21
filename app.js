@@ -3,6 +3,7 @@ const nbaUtil = require('./util/nbaUtils.js')
 const nbaData = require('./api/nbaData.js')
 const yahooData = require('./api/yahooData')
 
+
 const client = new Discord.Client();
 
 client.on("message", message => {

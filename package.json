@@ -4,7 +4,9 @@
   "description": "Chick Hearn NBA fantasy discord bot",
   "main": "app.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "lint": "standard --fix; exit 0",
+    "ho": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -20,11 +22,24 @@
     "discord.js": "^11.4.2",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.23",
-    "node-fetch": "^2.3.0",
-    "oauth20-provider": "^0.6.0"
+    "node-fetch": "^2.3.0"
   },
   "devDependencies": {
     "jest": "^24.1.0",
-    "jest-fetch-mock": "^2.1.1"
+    "jest-fetch-mock": "^2.1.1",
+    "standard": "^12.0.1"
+  },
+  "standard": {
+    "globals": [
+      "describe",
+      "before",
+      "after",
+      "beforeEach",
+      "afterEach",
+      "it",
+      "assert",
+      "expect",
+      "test"
+    ]
   }
 }

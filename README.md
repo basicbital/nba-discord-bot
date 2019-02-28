@@ -1,2 +1,7 @@
 # nba-discord-bot
-A fantasy nba discord bot that displays information differently from the app and website
+A discord bot named Chick Hearn that displays how many times players on your team play in a week.
+
+Please provide the following env vars:
+DISCORD_TOKEN
+YAHOO_API_KEY
+YAHOO_CLIENT_ID

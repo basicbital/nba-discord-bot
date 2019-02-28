@@ -90,6 +90,23 @@ getGamesInWeekTest = function(data, lastPlayedIndex, daysInWeek) {
     
 }
 
+/**
+ * @param {Object[]} data JSON object of players in a team
+ * @return {Object[]} first and last name of all players
+ */
+getAllPlayerNames = function(data) {
+    let players = []
+    for (let record in data) {
+        let name = {
+            "first": data[record].player[0][2].name.first,
+            "last": data[record].player[0][2].name.last
+        }
+        players.push(name)
+    }
+    return players
+}
+
+module.exports.getAllPlayerNames = getAllPlayerNames
 module.exports.getCurrentMonday = getCurrentMonday;
 module.exports.getDaysOfWeek = getDaysOfWeek;
 module.exports.getGamesInWeek = getGamesInWeek;

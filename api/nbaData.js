@@ -52,7 +52,31 @@ getLastPlayedIndex = function(teamId){
     })
 }
 
+/**
+ * @param leagueId ID of a user's fantasy league
+ * @param teamId ID of a user's fantasy team within a league. Expects the team to be within the league provided by leagueId
+ * @return {Promise<pending>} JSON containing all the players in the team
+ */
+getPlayerRoster = function(accessToken, leagueId, teamId) {
+    return fetch(`https://fantasysports.yahooapis.com/fantasy/v2/team/385.l.${leagueId}.t.${teamId}/roster/players?format=json`, options = {
+            method:'GET',
+            headers: {
+                'Authorization': "Bearer " + accessToken
+            }
+        })
+        .then(res => {
+            return res.json();
+        })
+        .then(response => {
+            return response.fantasy_content.team[1].roster["0"].players;
+        })
+        .catch(err => {
+            console.log(`${err}`)
+        })
+}
+
 module.exports.getPlayers = getPlayers;
+module.exports.getPlayerRoster = getPlayerRoster;
 module.exports.getTeamSchedule = getTeamSchedule;
 module.exports.getLastPlayedIndex = getLastPlayedIndex;
 

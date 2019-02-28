@@ -115,4 +115,20 @@ describe('../util/nbaUtils', ()=>{
         received[5] + "\nSunday: " + received[6]);
         expect(received).toEqual(expected);
     });
+
+    // TODO: Need to implement a way to get accessToken. Blocked by CH-24
+    test('getAllPlayerNames() returns list of player names', async ()=>{
+        const leagueId = 194346
+        const teamId = Math.floor(Math.random() * 10) + 1 // Random number between [1, 10]
+        const accessToken = "" // WIP need way to easily get access token
+        const rawRoster = await nbaData.getPlayerRoster(accessToken, leagueId, teamId).then(resp=>(resp));
+
+        let players = nbaUtils.getAllPlayerNames(rawRoster);
+        players.forEach(received => {
+            console.log("First name of player:  Expected: <string>\nReceived: " + received.firstName);
+            expect(received.firstName).toEqual(expect.any(String));
+            console.log("Last name of player:  Expected: <string>\nReceived: " + received.lastName);
+            expect(received.lastName).toEqual(expect.any(String));
+        })
+    });
 })

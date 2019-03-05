@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "Chick Hearn NBA fantasy discord bot",
   "main": "app.js",
+  "javascript.validate.enable": false,
   "scripts": {
     "test": "jest",
-    "lint": "standard --fix; exit 0",
+    "jest-unit-test": "jest -c ./__tests__/config/jest.config.unit.js",
+    "jest-integrate-test": "jest -c ./__tests__/config/jest.config.integration.js",
+    "lint": "standard --fix",
     "ho": "node app.js"
   },
   "repository": {
@@ -29,6 +32,11 @@
     "jest-fetch-mock": "^2.1.1",
     "standard": "^12.0.1"
   },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "<rootDir>/__tests__/config"
+    ]
+  },
   "standard": {
     "globals": [
       "describe",
@@ -39,7 +47,8 @@
       "it",
       "assert",
       "expect",
-      "test"
+      "test",
+      "jest"
     ]
   }
 }

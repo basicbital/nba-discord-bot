@@ -14,20 +14,20 @@ client.on('message', message => {
     message.channel.send(nbaUtil.getDaysOfWeek(nbaUtil.getCurrentMonday()))
   }
 
-	if (message.content === 'days') {
-		message.channel.send(nbaUtil.getDaysInWeek(nbaUtil.getCurrentMonday()));
-	}
+  if (message.content === 'days') {
+    message.channel.send(nbaUtil.getDaysInWeek(nbaUtil.getCurrentMonday()))
+  }
 
-	if (message.content === 'player') {
-		let firstName = "Quinn";
-		let lastName = "Cook";
-		nbaData.getPlayers().then(
-			resp =>{
-				let teamId = nbaUtil.getTeamId(resp, firstName, lastName);
-				nbaData.getTeamSchedule(teamId).then(resp => console.log(resp));
-			}
-		);
-	}
+  if (message.content === 'player') {
+    let firstName = 'Quinn'
+    let lastName = 'Cook'
+    nbaData.getPlayers().then(
+      resp => {
+        let teamId = nbaUtil.getTeamId(resp, firstName, lastName)
+        nbaData.getTeamSchedule(teamId).then(resp => console.log(resp))
+      }
+    )
+  }
 })
 
 // console.log(yahooData.getAuthCode().then(resp => console.log(resp)))

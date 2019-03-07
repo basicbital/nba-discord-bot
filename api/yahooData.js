@@ -5,7 +5,7 @@ const fetch = require('node-fetch')
  * @param {string} authCode code
  * @return {Promise<pending>} access_token and refresh_token
  */
-const initAccessToken = function (authCode) {
+const getInitialToken = function (authCode) {
   const params = new URLSearchParams({
     redirect_uri: 'oob',
     code: authCode,
@@ -36,7 +36,7 @@ const initAccessToken = function (authCode) {
  * @param {string} refreshToken refresh_token
  * @return {Promise<pending>} access_token and refresh_token
  */
-const getAccessToken = function (refreshToken) {
+const getRefreshedToken = function (refreshToken) {
   const params = new URLSearchParams({
     redirect_uri: 'oob',
     refresh_token: refreshToken,
@@ -66,7 +66,7 @@ const getAccessToken = function (refreshToken) {
 /**
  * @return {Promise<pending>} Yahoo Auth code
  */
-const getYahooAuthCode = function () {
+const getAuthCode = function () {
 // TODO future selenium method to login to yahoo and grab authCode
 
   const redirectURL = 'oob'
@@ -87,6 +87,6 @@ const getYahooAuthCode = function () {
     })
 }
 
-module.exports.getAccessToken = getAccessToken
-module.exports.getYahooAuthCode = getYahooAuthCode
-module.exports.initAccessToken = initAccessToken
+module.exports.getAuthCode = getAuthCode
+module.exports.getInitialToken = getInitialToken
+module.exports.getRefreshedToken = getRefreshedToken

@@ -26,8 +26,8 @@ client.on('message', message => {
   }
 })
 
-// console.log(yahooData.getYahooAuthCode().then(resp => console.log(resp)));
-// console.log(yahooData.initAccessToken('').then(resp => console.log(resp)));
-// console.log(yahooData.getAccessToken('').then(resp => console.log(resp)));
+// console.log(yahooData.getAuthCode().then(resp => console.log(resp)))
+// console.log(yahooData.getInitialToken('').then(resp => console.log(resp)))
+// console.log(yahooData.getRefreshedToken('').then(resp => console.log(resp)))
 
 client.login(process.env.DISCORD_TOKEN)

@@ -46,7 +46,7 @@ const getRefreshedToken = function (refreshToken) {
   return fetch('https://api.login.yahoo.com/oauth2/get_token', {
     method: 'POST',
     headers: {
-      'Authorization': 'Basic ' + process.env.YAHOO_API_KEY,
+      'Authorization': 'Basic ' + process.env.SECRET,
       'Content-Type': 'application/x-www-form-urlencoded'
     },
     body: params

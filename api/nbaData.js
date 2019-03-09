@@ -1,4 +1,5 @@
 const fetch = require('node-fetch')
+const yahooData = require('./yahooData.js')
 /**
  * @return {Promise<pending>} All nba players
  */
@@ -74,7 +75,25 @@ const getPlayerRoster = function (accessToken, leagueId, teamId) {
     })
 }
 
+const getTeamIdByName = function (accessToken, leagueId) {
+  return fetch(`https://fantasysports.yahooapis.com/fantasy/v2/league/nba.l.${leagueId}/standings?format=json`, {
+    method: 'GET',
+    headers: {
+      'Authorization': 'Bearer ' + accessToken
+    }
+  })
+    .then(res => {
+      return res.json()
+    })
+    .then(response => {
+      console.log(response)
+    })
+}
+accessToken = yahooData.getAccessToken()
+getTeamIdByName(accessToken, 194346)
+
+module.exports.getLastPlayedIndex = getLastPlayedIndex
 module.exports.getPlayers = getPlayers
 module.exports.getPlayerRoster = getPlayerRoster
 module.exports.getTeamSchedule = getTeamSchedule
-module.exports.getLastPlayedIndex = getLastPlayedIndex
+module.exports.getTeamIdByName = getTeamIdByName

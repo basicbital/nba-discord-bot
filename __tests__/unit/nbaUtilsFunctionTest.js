@@ -44,13 +44,15 @@ describe('../util/nbaUtils', ()=>{
     // }); 
     */
 
-    test('getCurrentMonday()', ()=>{
-        // .day() sunday -> 0, so monday is 1
-        let received = nbaUtils.getCurrentMonday().day();
-        let expected = 1; // monday -> 1
-        console.log("getCurrentMonday Log:\nReceived: " + received + "\nExpected: " + expected);
-        expect(received).toBe(expected);
-    });
+
+  test('getCurrentMonday()', () => {
+    // .day() sunday -> 0, so monday is 1
+    let received = nbaUtils.getCurrentMonday().day()
+    let expected = 1 // monday -> 1
+    console.log('getCurrentMonday Log:\nReceived: ' + received + '\nExpected: ' + expected)
+    expect(received).toBe(expected)
+  })
+
 
     test('getPrevMonday()', ()=>{
         let received = nbaUtils.getPrevMonday();
@@ -68,15 +70,13 @@ describe('../util/nbaUtils', ()=>{
 
     test('getDaysInWeek() with currentMonday', ()=>{
         let received = nbaUtils.getDaysInWeek(nbaUtils.getCurrentMonday());
-
-        let expected = [];
-        let daysInWeek = 7;
-        let day = moment(easternTime).day("Monday");
-        for( let i = 0; i < daysInWeek; i++){
-            expected.push(day.format("YYYYMMDD"));
-            day.add(1, 'd');
-        }    
-
+        let expected = []
+        let daysInWeek = 7
+        let day = moment(easternTime).day('Monday')
+        for (let i = 0; i < daysInWeek; i++) {
+          expected.push(day.format('YYYYMMDD'))
+          day.add(1, 'd')
+        }
         console.log("getDaysInWeek with currentMonday" + "\nExpected: \nMonday: " + expected[0] + "\nTuesday: " + expected[1] + "\nWednesday: " +
         expected[2] + "\nThursday: " + expected[3] + "\nFriday: " + expected[4] + "\nSaturday: " +
         expected[5] + "\nSunday: " + expected[6] + "\n\nReceived: \nMonday: " + received[0] + "\nTuesday: " + received[1] + "\nWednesday: " +
@@ -123,3 +123,4 @@ describe('../util/nbaUtils', ()=>{
         expect(received).toEqual(expected);
     });
 })
+

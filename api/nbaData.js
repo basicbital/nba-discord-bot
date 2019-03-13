@@ -86,11 +86,20 @@ const getTeamIdByName = function (accessToken, leagueId) {
       return res.json()
     })
     .then(response => {
-      console.log(response)
+      let num_teams = Object.keys(response.fantasy_content.league[1].standings[0].teams).length
+      let team_obj = {}
+      for(let i = 0; i < num_teams - 1; ++i) {
+        team_obj[response.fantasy_content.league[1].standings[0].teams[i].team[0][2].name] = response.fantasy_content.league[1].standings[0].teams[i].team[0][1].team_id
+      }
+      return team_obj
+    })
+    .catch(err => {
+      console.log(`${err}`)
     })
 }
-accessToken = yahooData.getAccessToken()
-getTeamIdByName(accessToken, 194346)
+
+let teamIds = getTeamIdByName(accessToken, 194346)
+teamIds.then(resp => console.log(resp['Mad Doggs']))
 
 module.exports.getLastPlayedIndex = getLastPlayedIndex
 module.exports.getPlayers = getPlayers

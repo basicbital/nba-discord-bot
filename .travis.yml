@@ -10,6 +10,8 @@ jobs:
       script: standard --fix
     - script: npm run test
       name: "Jest"
+    - script: echo "Hello World"
+      name: "Passing test"
 
 notifications:
   webhooks: $WEBHOOK_URL

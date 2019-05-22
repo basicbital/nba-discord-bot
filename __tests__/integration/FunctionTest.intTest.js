@@ -3,6 +3,8 @@ const nbaData = require('../../api/nbaData')
 const moment = require('moment')
 const momentTimeZone = require('moment-timezone')
 const easternTime = momentTimeZone().tz('America/New_York')
+const yUtils = require('../../util/yahooUtils')
+jest.setTimeout(10000)
 
 describe('../util/nbaUtils', () => {
   test('getTeamId()', async () => {
@@ -109,4 +111,25 @@ describe('../util/nbaUtils', () => {
   //     expect(received.lastName).toEqual(expect.any(String))
   //   })
   // })
+})
+
+describe('../../util/yahooUtils', () => {
+  test('createRosterDateMap()', async () => {
+    let userRoster = await yUtils.createRosterDateMap().then(resp => (resp))
+    let printRoster = 'Roster gathered from yahoo api: \n'
+    expect(userRoster).not.toBeNull()
+    for (let index = 0; index < 7; index++) {
+      expect(userRoster[0][index][1]).toBe(moment().day(index).format('M-D-YY'))
+      for (let player in userRoster[0][index]) {
+        if (!(/^\b(Mon|Tues|Wednes|Thurs|Fri|Satur|Sun)day\b[\s\S]*$/.test(userRoster[0][index][player])) &&
+        !moment(userRoster[0][index][player], 'MM-DD-YY').isValid()) {
+          // filter weekdays and dates strings, the remainder should be player names
+          printRoster += userRoster[0][index][player] + '\n'
+          expect(typeof userRoster[0][index][player]).toBe('string')
+          expect((/^[a-z ,.'-]+$/i.test(userRoster[0][index][player]))).toBeTruthy()
+        }
+      }
+    }
+    console.log(printRoster)
+  })
 })

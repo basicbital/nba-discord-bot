@@ -55,7 +55,7 @@ const getRefreshedToken = function (refreshToken) {
       return res.json()
     })
     .then(response => {
-      console.log(response.refresh_token)
+      // console.log(response.refresh_token)
       return response
     })
     .catch(err => {

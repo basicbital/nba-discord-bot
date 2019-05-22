@@ -30,11 +30,13 @@ const players = [{
   'country': 'USA'
 }]
 
-const teamSchedule = [
-  { 'startDateEastern': '20181001' },
-  { 'startDateEastern': '20181003' },
-  { 'startDateEastern': '20181004' }
-]
+// const teamSchedule = [
+//   { 'startDateEastern': '20181001' },
+//   { 'startDateEastern': '20181003' },
+//   { 'startDateEastern': '20181004' }
+// ]
+
+const teamSchedule = require('./mockschedule.json')
 
 const getPlayers = function () {
   return new Promise((resolve, reject) => {
@@ -44,9 +46,16 @@ const getPlayers = function () {
 
 const getTeamSchedule = function (teamId) {
   return new Promise((resolve, reject) => {
-    process.nextTick(() => resolve(teamSchedule))
+    process.nextTick(() => resolve(teamSchedule.league.standard))
+  })
+}
+
+const getLastPlayedIndex = function () {
+  return new Promise((resolve, reject) => {
+    process.nextTick(() => resolve(teamSchedule.league.lastStandardGamePlayedIndex))
   })
 }
 
 module.exports.getPlayers = getPlayers
 module.exports.getTeamSchedule = getTeamSchedule
+module.exports.getLastPlayedIndex = getLastPlayedIndex

@@ -29,4 +29,18 @@ describe('../util/nbaUtils', () => {
     console.log('getGamesInWeek: \nExpected: ' + expected + '\nReceived: ' + received)
     expect(received).toBe(expected)
   })
+
+  test('getDaysPlayedOn() returns an array with dates', async () => {
+    console.log('this test should return 3 dates that this team plays on for this given data: ')
+    let teamId = '1610612737'
+    let teamSchedule = await nbaData.getTeamSchedule(teamId).then(resp => (resp))
+    let lastPlayedIndex = await nbaData.getLastPlayedIndex().then(resp => (resp))
+    let testDate = moment('2018-10-01')
+    let weekDates = nbaUtils.getDaysInWeek(testDate)
+    let actual = nbaUtils.getDaysPlayedOn(teamSchedule, lastPlayedIndex, weekDates)
+    console.log('Total Dates Played: ' + actual.length)
+    // actual could be zero if league player no longer has active players in his roster
+    expect(typeof actual).toBe('object')
+    expect(actual.length).toBe(3)
+  })
 })

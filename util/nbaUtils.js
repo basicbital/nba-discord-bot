@@ -1,6 +1,7 @@
 const moment = require('moment')
 const momentTimeZone = require('moment-timezone')
 const easternTime = momentTimeZone().tz('America/New_York')
+const sprintf = require('sprintf-js').sprintf
 
 // data is array (for now)
 // TODO: Investigate optimization in searching algorithm (Gabe: '.every' function)
@@ -63,11 +64,6 @@ const getDaysInWeek = function (monDate) {
   return daysOfWeek
 }
 
-/// TODO CH-22 2/25/19
-/// this logic can be refactored, JSON file has a lastStandardGamePlayedIndex
-/// that indicates position of last played
-/// example listed below as getGamesInWeekTest
-
 /**
  * @param {Object[]} data JSON object of team games
  * @param {string[]} daysInWeek 7 sequential days always starting on Monday
@@ -87,6 +83,30 @@ const getGamesInWeek = function (data, daysInWeek) {
 }
 
 /**
+ * @param {Object[]} data JSON object of team games
+ * @param {number} lastPlayedIndex, index to last game in nba data json
+ * @param {string[]} daysInWeek 7 sequential days starting on a Monday
+ * @return {object[]} an array with dates played
+ */
+const getDaysPlayedOn = function (data, lastPlayedIndex, daysInWeek) {
+  let datesPlayed = []
+
+  data.slice(lastPlayedIndex).forEach(game => {
+    let gameDate = game.startDateEastern
+    if (gameDate >= daysInWeek[0] && gameDate <= daysInWeek[6]) {
+      datesPlayed.push(gameDate)
+    }
+  })
+  return datesPlayed
+}
+
+/// TODO CH-22 2/25/19
+/// this logic can be refactored, JSON file has a lastStandardGamePlayedIndex
+/// that indicates position of last played
+/// example listed below as getGamesInWeekTest
+/// refactoring could cause all code dependent on it to change might not be worth effort
+/// for w.e optimization benefit it might give
+/**
  * @param {Object[]} data JSON object of a team's gamesPlayed
  * @param {number} lastPlayedIndex index from JSON league: lastStandardGamePlayedIndex
  * @param {string[]} daysInWeek still not sure what the heck this is for, shouldn't it be dayInWeek?
@@ -103,13 +123,56 @@ const getGamesInWeek = function (data, daysInWeek) {
 const getAllPlayerNames = function (data) {
   let players = []
   for (let record in data) {
-    let name = {
-      'first': data[record].player[0][2].name.first,
-      'last': data[record].player[0][2].name.last
+    if (record !== 'count') { // thanks yahoo
+      let name = {
+        'first': data[record].player[0][2].name.first,
+        'last': data[record].player[0][2].name.last
+      }
+      players.push(name)
     }
-    players.push(name)
   }
   return players
+}
+
+/**
+ * @param {string}  token user refresh token
+ * @return {string[]}  full names of players in a yahoo user team
+ */
+const displayUserMap = function (playersPlayingThisWeek) {
+  let retStr = '```'
+
+  // HARD CODED EXAMPLE TO PROCESS
+  // const playersPlayingThisWeek = [{
+  //   0: ['Monday', 'val1', 'val2', 'val3'],
+  //   1: ['Tuesday', 'val1', 'val2', 'val3'],
+  //   2: ['Wednesday', 'val1', 'val3', 'val3'],
+  //   3: ['Thursday', 'val1', 'val2'],
+  //   4: ['Friday', 'val1', 'val2'],
+  //   5: ['Saturday', 'val1', 'val2'],
+  //   6: ['Sunday', 'val1', 'val2']
+  // }]
+
+  for (let index = 0; index < 7; index++) {
+    var str = ''
+    for (let data in playersPlayingThisWeek[0][index]) {
+      let arrayLength = playersPlayingThisWeek[0][index].length - 1
+      if (data === '0') {
+        // str = str + playersPlayingThisWeek[0][index][data] + '\t'
+        let day = playersPlayingThisWeek[0][index][data]
+        str = str + sprintf(`%1$' -12s`, `${day}`)
+      } else if (data === '1') {
+        let date = playersPlayingThisWeek[0][index][data]
+        str = str + sprintf(`%1$' -10s`, `${date}`)
+      } else if (data === arrayLength.toString()) {
+        str = str + playersPlayingThisWeek[0][index][data] // truncate names doable here adjust with sprintf(s) check docs
+      } else {
+        str = str + playersPlayingThisWeek[0][index][data] + ', '
+      }
+    }
+    retStr = retStr + str + '\r\n'
+  }
+  retStr += '```'
+  return retStr
 }
 
 module.exports.getAllPlayerNames = getAllPlayerNames
@@ -119,3 +182,5 @@ module.exports.getGamesInWeek = getGamesInWeek
 module.exports.getTeamId = getTeamId
 module.exports.getPrevMonday = getPrevMonday
 module.exports.getNextMonday = getNextMonday
+module.exports.displayUserMap = displayUserMap
+module.exports.getDaysPlayedOn = getDaysPlayedOn

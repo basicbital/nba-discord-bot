@@ -37,6 +37,7 @@ const players = [{
 // ]
 
 const teamSchedule = require('./mockschedule.json')
+const leagueData = require('./users_games_leagues.json')
 
 const getPlayers = function () {
   return new Promise((resolve, reject) => {
@@ -56,6 +57,13 @@ const getLastPlayedIndex = function () {
   })
 }
 
+const getPlayerLeagues = function () {
+  return new Promise((resolve, reject) => {
+    process.nextTick(() => resolve(leagueData))
+  })
+}
+
+module.exports.getPlayerLeagues = getPlayerLeagues
 module.exports.getPlayers = getPlayers
 module.exports.getTeamSchedule = getTeamSchedule
 module.exports.getLastPlayedIndex = getLastPlayedIndex

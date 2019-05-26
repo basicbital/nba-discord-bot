@@ -180,6 +180,7 @@ const displayUserMap = function (playersPlayingThisWeek) {
  * @param {String} leagueName Player's nba league name
  * @return {String} Nba league_id
  */
+// will use getPlayerLeagues() for data
 const getPlayersNbaLeagueId = function (data, leagueName) {
   const length = data.count
   for (let index = 0; index < length; index++) {

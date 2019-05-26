@@ -39,12 +39,5 @@ client.on('message', async message => {
 // console.log(yahooAuthData.getAuthCode().then(resp => console.log(resp)))
 // console.log(yahooAuthData.getInitialToken('').then(resp => console.log(resp)))
 // console.log(yahooAuthData.getRefreshedToken('').then(resp => console.log(resp)))
-console.log(nbaData.getPlayerLeagues(accessTkn)
-  .then(resp => {
-    const leagueId = nbaUtil.getPlayersNbaLeagueId(resp, 'SQA²')
-    console.log(leagueId)
-  })
-  .catch(err => {
-    console.log(`${err}`)
-  }))
+
 client.login(process.env.DISCORD_TOKEN)

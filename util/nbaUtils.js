@@ -175,6 +175,26 @@ const displayUserMap = function (playersPlayingThisWeek) {
   return retStr
 }
 
+/**
+ * @param {Object[]} data JSON object of players in a team
+ * @param {String} leagueName Player's nba league name
+ * @return {String} Nba league_id
+ */
+// will use getPlayerLeagues() for data
+const getPlayersNbaLeagueId = function (data, leagueName) {
+  const length = data.count
+  for (let index = 0; index < length; index++) {
+    if (data[index].game[0].name === 'Basketball') {
+      const leagueLength = data[index].game[1].leagues.count
+      for (let index = 0; index < leagueLength; index++) {
+        if (leagueName === data[index].game[1].leagues[index].league[0].name) {
+          return data[index].game[1].leagues[index].league[0].league_id
+        }
+      }
+    }
+  }
+}
+
 module.exports.getAllPlayerNames = getAllPlayerNames
 module.exports.getCurrentMonday = getCurrentMonday
 module.exports.getDaysInWeek = getDaysInWeek
@@ -184,3 +204,4 @@ module.exports.getPrevMonday = getPrevMonday
 module.exports.getNextMonday = getNextMonday
 module.exports.displayUserMap = displayUserMap
 module.exports.getDaysPlayedOn = getDaysPlayedOn
+module.exports.getPlayersNbaLeagueId = getPlayersNbaLeagueId

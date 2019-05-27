@@ -1,4 +1,4 @@
-const yahooData = require('../api/yahooData')
+const yahooData = require('../api/yahooAuthData')
 const nbaData = require('../api/nbaData')
 const nbaUtils = require('../util/nbaUtils')
 /// For hardcoding

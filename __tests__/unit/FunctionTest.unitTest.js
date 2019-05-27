@@ -43,4 +43,14 @@ describe('../util/nbaUtils', () => {
     expect(typeof actual).toBe('object')
     expect(actual.length).toBe(3)
   })
+
+  test('getPlayersNbaLeagueId', async () => {
+    const leagueName = 'SQA²'
+    const expectedLeagueId = '194346'
+    const loggedInUserMock = await nbaData.getPlayerLeagues().then(resp => (resp))
+    console.log(loggedInUserMock)
+    const leagueId = nbaUtils.getPlayersNbaLeagueId(loggedInUserMock, leagueName)
+    console.log('getPlayersNbaLeagueId():\nExpected: ' + expectedLeagueId + '\nReceived: ' + leagueId)
+    expect(leagueId).toBe(expectedLeagueId)
+  })
 })

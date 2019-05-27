@@ -3,7 +3,7 @@ const nbaUtil = require('./util/nbaUtils.js')
 const nbaData = require('./api/nbaData.js')
 // const ui = require('./response_ui/responseUI')
 const yUtils = require('./util/yahooUtils')
-// const yahooData = require('./api/yahooData')
+// const yahooAuthData = require('./api/yahooAuthData')
 
 const client = new Discord.Client()
 
@@ -36,8 +36,8 @@ client.on('message', async message => {
   }
 })
 
-// console.log(yahooData.getAuthCode().then(resp => console.log(resp)))
-// console.log(yahooData.getInitialToken('').then(resp => console.log(resp)))
-// console.log(yahooData.getRefreshedToken('').then(resp => console.log(resp)))
+// console.log(yahooAuthData.getAuthCode().then(resp => console.log(resp)))
+// console.log(yahooAuthData.getInitialToken('').then(resp => console.log(resp)))
+// console.log(yahooAuthData.getRefreshedToken('').then(resp => console.log(resp)))
 
 client.login(process.env.DISCORD_TOKEN)

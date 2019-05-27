@@ -1,0 +1,29 @@
+steps 
+- user command "get roster for current/prev/next monday"
+- ui.getRosterForThisWeek(nbaUtil.getCurrentMonday())
+- get user's roster
+- set the monDate the user wants to use
+- find which days roster[i] plays
+   - save to a dictionary
+   ex:
+   define
+   playersPlayingThisWeek = {
+     '20190401' : ['Monday'],
+     '20190402' : ['Tuesday'],
+     '20190403' : ['Wednesday'],
+     '20190404' : ['Thursday'],
+     '20190405' : ['Friday']
+   }
+
+- get all players teamid
+- search player teamschedule
+- gather dates playing for week starting on given monday
+playerMatchDates = []
+- for date in playersPlayingThisWeek[day]:
+	if playerMatchDates is not a date
+		skip to next index
+	else if playerMatchDates is date then
+		playersPlayingThisWeek[day][date].append(playerName)
+
+
+/// TODO MIKE gather a list of tests that need to be written

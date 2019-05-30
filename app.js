@@ -4,6 +4,7 @@ const nbaData = require('./api/nbaData.js')
 // const ui = require('./response_ui/responseUI')
 const yUtils = require('./util/yahooUtils')
 // const yahooAuthData = require('./api/yahooAuthData')
+// const { getChickism } = require('./util/appUtils')
 
 const client = new Discord.Client()
 
@@ -39,5 +40,6 @@ client.on('message', async message => {
 // console.log(yahooAuthData.getAuthCode().then(resp => console.log(resp)))
 // console.log(yahooAuthData.getInitialToken('').then(resp => console.log(resp)))
 // console.log(yahooAuthData.getRefreshedToken('').then(resp => console.log(resp)))
+// console.log(getChickism())
 
 client.login(process.env.DISCORD_TOKEN)

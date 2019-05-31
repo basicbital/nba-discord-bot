@@ -6,6 +6,7 @@ const yUtils = require('./util/yahooUtils')
 // const yahooAuthData = require('./api/yahooAuthData')
 
 const client = new Discord.Client()
+let refreshToken = ''
 
 client.on('message', async message => {
   if (message.content === 'hi') {
@@ -33,6 +34,21 @@ client.on('message', async message => {
     let msg = nbaUtil.displayUserMap(userRoster)
     console.log(msg)
     message.channel.send(msg)
+  }
+  if (message.author.username !== client.user.username) {
+    if (message.channel.type === 'dm') {
+      const msg = message.content.split(' ')
+      if (msg[0] === 'setRefresh') {
+        if (msg.length === 2) {
+          refreshToken = msg[1]
+          console.log(`Refresh Token set to: ${refreshToken}`)
+          message.reply(`Refresh token is now ${refreshToken}`)
+        } else {
+          console.log(`[Error] setRefresh: Message length should only be 2 but is actually ${msg.length} `)
+          message.reply('Rejected. Try again noob.')
+        }
+      }
+    }
   }
 })
 

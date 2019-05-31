@@ -13,8 +13,8 @@ client.on('message', async message => {
     message.channel.send('hellow world.')
   }
 
-  if (message.content === 'days') {
-    message.channel.send(nbaUtil.getDaysOfWeek(nbaUtil.getCurrentMonday()))
+  if (message.content === 'days') {//just changed 'Of' to 'In'...it bothered me ok?
+    message.channel.send(nbaUtil.getDaysInWeek(nbaUtil.getCurrentMonday()))
   }
 
   if (message.content === 'player') {

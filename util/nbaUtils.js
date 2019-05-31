@@ -70,6 +70,7 @@ const getDaysInWeek = function (monDate) {
  * @return {number} games played for given team in given week
  */
 
+/*old and archived because I was told to
 const getGamesInWeek = function (data, daysInWeek) {
   let gamesPlayed = 0
   data.forEach(game => {
@@ -81,7 +82,7 @@ const getGamesInWeek = function (data, daysInWeek) {
   })
   return gamesPlayed
 }
-
+*/
 /**
  * @param {Object[]} data JSON object of team games
  * @param {number} lastPlayedIndex, index to last game in nba data json
@@ -115,6 +116,18 @@ const getDaysPlayedOn = function (data, lastPlayedIndex, daysInWeek) {
 // const getGamesInWeekTest = function (data, lastPlayedIndex, daysInWeek) {
 //
 // }
+//getGamesInWeekTest
+const getGamesInWeek = function (data, lastPlayedIndex, daysInWeek) {
+  let gamesPlayed = 0
+  data.slice(lastPlayedIndex).forEach(game => {
+    // logic to search all games
+    let gameDate = game.startDateEastern
+    if (gameDate >= daysInWeek[0] && gameDate <= daysInWeek[6]) {
+      gamesPlayed += 1
+    }
+  })
+  return gamesPlayed
+}
 
 /**
  * @param {Object[]} data JSON object of players in a team

@@ -13,7 +13,7 @@ describe('../util/nbaUtils', () => {
     console.log('getTeamId():\nExpected: ' + expectedId + '\nReceived: ' + teamId)
     expect(teamId).toBe(expectedId)
   })
-
+/*old and archived again because I was told to
   test('getGamesInWeek() returns number of games during a given week', async () => {
     let teamId = '1610612737'
     const teamScheduleMock = await nbaData.getTeamSchedule(teamId).then(resp => (resp))
@@ -29,6 +29,24 @@ describe('../util/nbaUtils', () => {
     console.log('getGamesInWeek: \nExpected: ' + expected + '\nReceived: ' + received)
     expect(received).toBe(expected)
   })
+*/
+//new "test"
+test('getGamesInWeek() returns number of games during a given week', async () => {
+  let teamId = '1610612737'
+  const teamScheduleMock = await nbaData.getTeamSchedule(teamId).then(resp => (resp))
+  let lastPlayedIndex = await nbaData.getLastPlayedIndex().then(resp => (resp))
+  let daysInWeek = 7
+  let days = []
+  let day = moment('2018-10-01')
+  for (let i = 0; i < daysInWeek; i++) {
+    days.push(day.format('YYYYMMDD'))
+    day.add(1, 'd')
+  }
+  let received = nbaUtils.getGamesInWeek(teamScheduleMock, lastPlayedIndex, days)
+  let expected = 3
+  console.log('getGamesInWeek: \nExpected: ' + expected + '\nReceived: ' + received)
+  expect(received).toBe(expected)
+})
 
   test('getDaysPlayedOn() returns an array with dates', async () => {
     console.log('this test should return 3 dates that this team plays on for this given data: ')

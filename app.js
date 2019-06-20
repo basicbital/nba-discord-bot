@@ -1,43 +1,61 @@
-const Discord = require('discord.js')
-const nbaUtil = require('./util/nbaUtils.js')
-const nbaData = require('./api/nbaData.js')
-// const ui = require('./response_ui/responseUI')
-const yUtils = require('./util/yahooUtils')
 // const yahooAuthData = require('./api/yahooAuthData')
+// const { getChickism } = require('./util/appUtils')
+let refreshToken = ''
+const discord = require('discord.js')
+const { prefix } = require('./config.json')
+const fs = require('fs')
 
-const client = new Discord.Client()
+const client = new discord.Client()
+client.commands = new discord.Collection()
+
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'))
+
+for (const file of commandFiles) {
+  const command = require(`./commands/${file}`)
+  client.commands.set(command.name, command)
+}
+
+client.once('ready', () => {
+  console.log('READY in apptest.js')
+})
 
 client.on('message', async message => {
-  if (message.content === 'hi') {
-    message.channel.send('hellow world.')
+  if (!message.content.startsWith(prefix) || message.author.bot) return
+  const args = message.content.slice(prefix.length).split(/ +/)
+  const command = args.shift().toLowerCase()
+
+  // if user submits/mispells invalid command, list available commands
+  if (!client.commands.has(command)) {
+    client.commands.get('help').execute(message, 'invalid')
+    return
   }
 
-  if (message.content === 'days') {
-    message.channel.send(nbaUtil.getDaysOfWeek(nbaUtil.getCurrentMonday()))
+  try {
+    client.commands.get(command).execute(message, args)
+  } catch (error) {
+    console.error(error)
+    message.reply(`there was an error`)
   }
-
-  if (message.content === 'player') {
-    let firstName = 'Quinn'
-    let lastName = 'Cook'
-    nbaData.getPlayers().then(
-      resp => {
-        let teamId = nbaUtil.getTeamId(resp, firstName, lastName)
-        nbaData.getTeamSchedule(teamId).then(resp => console.log(resp))
+  if (message.author.username !== client.user.username) {
+    if (message.channel.type === 'dm') {
+      const msg = message.content.split(' ')
+      if (msg[0] === 'setRefresh') {
+        if (msg.length === 2) {
+          refreshToken = msg[1]
+          console.log(`Refresh Token set to: ${refreshToken}`)
+          message.reply(`Refresh token is now ${refreshToken}`)
+        } else {
+          console.log(`[Error] setRefresh: Message length should only be 2 but is actually ${msg.length} `)
+          message.reply('Rejected. Try again noob.')
+        }
       }
-    )
-  }
-
-  if (message.content === 'r') {
-    // call ui to get roster and feed into displayData
-    let userRoster = await yUtils.createRosterDateMap().then(resp => (resp))
-    let msg = nbaUtil.displayUserMap(userRoster)
-    console.log(msg)
-    message.channel.send(msg)
+    }
   }
 })
 
 // console.log(yahooAuthData.getAuthCode().then(resp => console.log(resp)))
 // console.log(yahooAuthData.getInitialToken('').then(resp => console.log(resp)))
 // console.log(yahooAuthData.getRefreshedToken('').then(resp => console.log(resp)))
+// console.log(getChickism())
 
 client.login(process.env.DISCORD_TOKEN)

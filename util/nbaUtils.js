@@ -90,7 +90,7 @@ const getGamesInWeek = function (data, daysInWeek) {
  */
 const getDaysPlayedOn = function (data, lastPlayedIndex, daysInWeek) {
   let datesPlayed = []
-
+  /// TODO invalid date issue could occur here fix if happens
   data.slice(lastPlayedIndex).forEach(game => {
     let gameDate = game.startDateEastern
     if (gameDate >= daysInWeek[0] && gameDate <= daysInWeek[6]) {

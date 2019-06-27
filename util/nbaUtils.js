@@ -59,6 +59,7 @@ const getDaysInWeek = function (monDate) {
     // if left as it was on exiting this function monDate would be changed accordingly
     // to wat addDate was doing here -Mike
     daysOfWeek.push(addDate.format('YYYYMMDD'))
+    //console.log(addDate.format('YYYYMMDD'))
     addDate.add(1, 'days')
   }
   return daysOfWeek

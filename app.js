@@ -23,7 +23,6 @@ client.on('message', async message => {
   if (!message.content.startsWith(prefix) || message.author.bot) return
   const args = message.content.slice(prefix.length).split(/ +/)
   const command = args.shift().toLowerCase()
-
   // if user submits/mispells invalid command, list available commands
   if (!client.commands.has(command)) {
     client.commands.get('help').execute(message, 'invalid')

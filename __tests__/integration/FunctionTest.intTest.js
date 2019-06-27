@@ -115,7 +115,7 @@ describe('../util/nbaUtils', () => {
 
 describe('../../util/yahooUtils', () => {
   test('createRosterDateMap()', async () => {
-    let userRoster = await yUtils.createRosterDateMap().then(resp => (resp))
+    let userRoster = await yUtils.createRosterDateMap(0).then(resp => (resp))
     let printRoster = 'Roster gathered from yahoo api: \n'
     expect(userRoster).not.toBeNull()
     for (let index = 0; index < 7; index++) {

@@ -115,11 +115,14 @@ describe('../util/nbaUtils', () => {
 
 describe('../../util/yahooUtils', () => {
   test('createRosterDateMap()', async () => {
-    let userRoster = await yUtils.createRosterDateMap().then(resp => (resp))
+    let mondayStart = 1
+    let userRoster = await yUtils.createRosterDateMap(mondayStart).then(resp => (resp))
     let printRoster = 'Roster gathered from yahoo api: \n'
     expect(userRoster).not.toBeNull()
+    if(moment().format('dddd') === 'Sunday')
+      mondayStart = mondayStart + (-7)
     for (let index = 0; index < 7; index++) {
-      expect(userRoster[0][index][1]).toBe(moment().day(index).format('M-D-YY'))
+      expect(userRoster[0][index][1]).toBe(moment().day(index+mondayStart).format('M-D-YY'))
       for (let player in userRoster[0][index]) {
         if (!(/^\b(Mon|Tues|Wednes|Thurs|Fri|Satur|Sun)day\b[\s\S]*$/.test(userRoster[0][index][player])) &&
         !moment(userRoster[0][index][player], 'MM-DD-YY').isValid()) {

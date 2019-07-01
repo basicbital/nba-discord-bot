@@ -31,8 +31,8 @@ const createRosterDateMap = async function (mondayStart) {
   let rosterData = await nbaData.getPlayerRoster(token.access_token, process.env.LEAGUE_ID, process.env.TEAM_ID).then(resp => (resp))
   let roster = nbaUtils.getAllPlayerNames(rosterData)
   /// DELETE AND REPLACE HARD CODED DATA
-  let weekDates = nbaUtils.getDaysInWeek(moment().day('Monday'))
-   let thisWeeksDates = [{
+  //let weekDates = nbaUtils.getDaysInWeek(moment().day('Monday'))//currently fills with current weeks dates, redundant?
+  let thisWeeksDates = [{
     0: ['Monday'],
     1: ['Tuesday'],
     2: ['Wednesday'],
@@ -47,8 +47,9 @@ const createRosterDateMap = async function (mondayStart) {
     mondayStart = mondayStart + (-7)
 
   for (let index = 0; index < 7; index++) {
-    thisWeeksDates[0][index].push(moment().day(index+mondayStart).format('M-D-YY')) /// TODO what happens when Month is double digit?
+    thisWeeksDates[0][index].push(moment().day(index+mondayStart).format('MM-DD-YY')) /// TODO what happens when Month is double digit?
     /// Potential way to modify this to a generic return date for customizability?
+    //console.log(moment().day(index+mondayStart).format('MM-DD-YY'))
   }
 
   for (let player in roster) {
@@ -56,10 +57,10 @@ const createRosterDateMap = async function (mondayStart) {
       let teamId = nbaUtils.getTeamId(allRosterData, roster[player].first, roster[player].last)
       let teamSchedule = await nbaData.getTeamSchedule(teamId).then(resp => (resp))
       let lastPlayedIndex = await nbaData.getLastPlayedIndex(teamId).then(resp => (resp))
-      let playerDatePlaying = nbaUtils.getDaysPlayedOn(teamSchedule, lastPlayedIndex, weekDates)
+      let playerDatePlaying = nbaUtils.getDaysPlayedOn(teamSchedule, lastPlayedIndex, thisWeeksDates)
       for (let date in playerDatePlaying) {
         if (date !== 'count') {
-          let dateplaying = moment(playerDatePlaying[date]).format('M-D-YY')
+          let dateplaying = moment(playerDatePlaying[date]).format('MM-DD-YY')
           for (let index = 0; index < 7; index++) {
             let givenDates = thisWeeksDates[0][index][1]
             if (index !== 'count') {

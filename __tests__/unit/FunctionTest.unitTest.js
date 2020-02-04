@@ -53,4 +53,36 @@ describe('../util/nbaUtils', () => {
     console.log('getPlayersNbaLeagueId():\nExpected: ' + expectedLeagueId + '\nReceived: ' + leagueId)
     expect(leagueId).toBe(expectedLeagueId)
   })
+
+  test('check that displayUserMap truncates large name', () => {
+    // const charMax = 10
+    const longName = 'Kentavious Caldwell-PopeisDopeus'
+    const shortName = 'Short Name'
+    const multSpaces = 'Bad  Name'
+    const juniors = 'Junior jr.'
+    const apostrophes = 'Shaq O\'Neal'
+    // const dotsInMiddle = 'Dot .WhoHasThisName'  // in case ai's become real and have functions as last name...
+    const reallyLongName = 'Looooooooooooooooooooooooooong long'
+    const playersPlayingThisWeek = [{
+      0: ['Monday', '06-23-2019', longName, shortName],
+      1: ['Tuesday', '06-23-2019', multSpaces, juniors, shortName, reallyLongName],
+      2: ['Wednesday', '06-23-2019', apostrophes, shortName],
+      3: ['Thursday', '06-23-2019', shortName, reallyLongName, shortName],
+      4: ['Friday', '06-23-2019'],
+      5: ['Saturday', '06-23-2019'],
+      6: ['Sunday', '06-23-2019']
+    }]
+    // let startIndex = 2
+    // for (let index = 0; index < 7; index++) {
+    //   playersPlayingThisWeek[0][index].slice(startIndex).forEach(name => {
+    //     console.log('Player name: ' + name + '\r\n' + 'LengthMax?: ' + (name.length > charMax))
+    //     if (name.length > charMax) {
+    //       console.log('Expected long name')
+    //     }
+    //     expect(name.length > charMax).toBe(true)
+    //   })
+    // }
+    const userMap = nbaUtils.displayUserMap(playersPlayingThisWeek)
+    console.log(userMap)
+  })
 })

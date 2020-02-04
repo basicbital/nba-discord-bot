@@ -47,7 +47,7 @@ const getPlayers = function () {
 
 const getTeamSchedule = function (teamId) {
   return new Promise((resolve, reject) => {
-    process.nextTick(() => resolve(teamSchedule.league.standard))
+    process.nextTick(() => resolve(teamSchedule)) // mock data is .league.standard
   })
 }
 

@@ -1,4 +1,17 @@
 const fetch = require('node-fetch')
+
+const getNbaYear = function () {
+  return fetch('http://data.nba.net/10s/prod/v1/today.json')
+    .then(res => {
+      return res.json()
+    })
+    .then(response => {
+      return response.teamSitesOnly.seasonYear
+    })
+    .catch(err =>{
+      console.log(`${err} Promise error`)
+    })
+}
 /**
  * @return {Promise<pending>} All nba players
  */
@@ -98,6 +111,7 @@ const getPlayerLeagues = function (accessToken) {
     })
 }
 
+module.exports.getNbaYear = getNbaYear
 module.exports.getPlayers = getPlayers
 module.exports.getPlayerRoster = getPlayerRoster
 module.exports.getTeamSchedule = getTeamSchedule

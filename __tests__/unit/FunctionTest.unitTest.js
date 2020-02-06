@@ -86,3 +86,12 @@ describe('../util/nbaUtils', () => {
     console.log(userMap)
   })
 })
+
+jest.unmock('../../api/nbaData')
+describe('../api/nbaData.js', () => {
+  test('GetNbaYear_NoParam_ReturnsAYear', async () => {
+    let received = await nbaData.getNbaYear().then(resp => (resp))
+    console.log('Year received from nba.net: ' + received)
+    expect(typeof received).toBe('number')
+  })
+})

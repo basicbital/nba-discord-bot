@@ -212,6 +212,20 @@ const getPlayersNbaLeagueId = function (data, leagueName) {
     }
   }
 }
+/**
+ * @return {String} nbaYear string representing the year of the nba season
+ */
+const getNbaYear = function () {
+  let nbaYear = -1
+  let currentMonthIndex = moment().month()
+  let octoberMonthIndex = moment().month('October').month()
+  if (currentMonthIndex < octoberMonthIndex) {
+    nbaYear = moment().subtract(1, 'y').year()
+  } else {
+    nbaYear = moment().year()
+  }
+  return nbaYear
+}
 
 module.exports.getAllPlayerNames = getAllPlayerNames
 module.exports.getCurrentMonday = getCurrentMonday
@@ -223,3 +237,4 @@ module.exports.getNextMonday = getNextMonday
 module.exports.displayUserMap = displayUserMap
 module.exports.getDaysPlayedOn = getDaysPlayedOn
 module.exports.getPlayersNbaLeagueId = getPlayersNbaLeagueId
+module.exports.getNbaYear = getNbaYear

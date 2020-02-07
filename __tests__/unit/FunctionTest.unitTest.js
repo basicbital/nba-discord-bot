@@ -94,4 +94,12 @@ describe('../api/nbaData.js', () => {
     console.log('Year received from nba.net: ' + received)
     expect(typeof received).toBe('number')
   })
+
+  test('GetTeamSchedule_GivenTeamID_FieldSeasonStageID', async () => {
+    let teamId = '1610612737'
+    let received = await nbaData.getTeamSchedule(teamId).then(resp => (resp))
+    // received gets all data for standard
+    console.log('Object.keys(received.slice(0)[0])[0]) should return the first field in standard index 0, which is seasonStageId')
+    expect(Object.keys(received.slice(0)[0])[0]).toBe('seasonStageId')
+  })
 })

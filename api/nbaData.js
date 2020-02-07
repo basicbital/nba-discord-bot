@@ -17,8 +17,9 @@ const getNbaYear = function () {
 /**
  * @return {Promise<pending>} All nba players
  */
-const getPlayers = function () {
-  return fetch('http://data.nba.net/10s/prod/v1/2018/players.json')
+const getPlayers = async function () {
+  let nbaYear = await getNbaYear().then(resp =>(resp))
+  return fetch(`http://data.nba.net/10s/prod/v1/${nbaYear}/players.json`)
     .then(res => {
       return res.json()
     })
@@ -34,8 +35,9 @@ const getPlayers = function () {
  * @param {number} teamId Unique key for nba team
  * @return {Promise<pending>} All given team games
  */
-const getTeamSchedule = function (teamId) {
-  return fetch(`http://data.nba.net/10s/prod/v1/2018/teams/${teamId}/schedule.json`)
+const getTeamSchedule = async function (teamId) {
+  let nbaYear = await getNbaYear().then(resp =>(resp))
+  return fetch(`http://data.nba.net/10s/prod/v1/${nbaYear}/teams/${teamId}/schedule.json`)
     .then(res => {
       return res.json()
     })
@@ -52,8 +54,9 @@ const getTeamSchedule = function (teamId) {
  * @param {string} teamId Unique key for nba team
  * @return {number} index of last game played by TeamId
  */
-const getLastPlayedIndex = function (teamId) {
-  return fetch(`http://data.nba.net/10s/prod/v1/2018/teams/${teamId}/schedule.json`)
+const getLastPlayedIndex = async function (teamId) {
+  let nbaYear = await getNbaYear().then(resp =>(resp))
+  return fetch(`http://data.nba.net/10s/prod/v1/${nbaYear}/teams/${teamId}/schedule.json`)
     .then(res => {
       return res.json()
     })

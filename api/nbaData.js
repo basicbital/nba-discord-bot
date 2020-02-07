@@ -1,5 +1,7 @@
 const fetch = require('node-fetch')
-
+/**
+ * @return {Promise<pending>} Year of the nba season
+ */
 const getNbaYear = function () {
   return fetch('http://data.nba.net/10s/prod/v1/today.json')
     .then(res => {

@@ -4,7 +4,7 @@ const nbaData = require('../../api/nbaData')
 jest.mock('../../api/nbaData') // mock nbaData, folder __mocks__ needs to be in same directory as module
 
 describe('../util/nbaUtils', () => {
-  test('getTeamId() returns team id for a given player name', async () => {
+  test('GetTeamId_GivenJsonFirstLastName_Number', async () => {
     let firstName = 'Jaylen'
     let lastName = 'Adams'
     let expectedId = '1610612737'
@@ -14,7 +14,7 @@ describe('../util/nbaUtils', () => {
     expect(teamId).toBe(expectedId)
   })
 
-  test('getGamesInWeek() returns number of games during a given week', async () => {
+  test('GetGamesInWeek_GivenJsonAndArrayOfWeekDays_Number', async () => {
     let teamId = '1610612737'
     const teamScheduleMock = await nbaData.getTeamSchedule(teamId).then(resp => (resp))
     let daysInWeek = 7
@@ -30,7 +30,7 @@ describe('../util/nbaUtils', () => {
     expect(received).toBe(expected)
   })
 
-  test('getDaysPlayedOn() returns an array with dates', async () => {
+  test('GetDaysPlayedOn_GivenJsonLastPlayedIndexArrayofDaysInWeek_ArrayWithObjects', async () => {
     console.log('this test should return 3 dates that this team plays on for this given data: ')
     let teamId = '1610612737'
     let teamSchedule = await nbaData.getTeamSchedule(teamId).then(resp => (resp))
@@ -44,18 +44,11 @@ describe('../util/nbaUtils', () => {
     expect(actual.length).toBe(3)
   })
 
-  test('getPlayersNbaLeagueId', async () => {
-    const leagueName = 'SQA²'
-    const expectedLeagueId = '194346'
-    const loggedInUserMock = await nbaData.getPlayerLeagues().then(resp => (resp))
-    console.log(loggedInUserMock)
-    const leagueId = nbaUtils.getPlayersNbaLeagueId(loggedInUserMock, leagueName)
-    console.log('getPlayersNbaLeagueId():\nExpected: ' + expectedLeagueId + '\nReceived: ' + leagueId)
-    expect(leagueId).toBe(expectedLeagueId)
-  })
-
-  test('check that displayUserMap truncates large name', () => {
+  test('DisplayUserMap_PlayerDatePlayingDictionary_StringArrayFormattedContent', () => {
     // const charMax = 10
+    console.log('Long Names should be truncated')
+    console.log('Multiple spaces are truncated')
+    console.log('Apostrophes and periods are correctly displayed')
     const longName = 'Kentavious Caldwell-PopeisDopeus'
     const shortName = 'Short Name'
     const multSpaces = 'Bad  Name'
@@ -84,6 +77,16 @@ describe('../util/nbaUtils', () => {
     // }
     const userMap = nbaUtils.displayUserMap(playersPlayingThisWeek)
     console.log(userMap)
+  })
+
+  test('GetPlayersNbaLeagueId_GivenJsonStringOfLeagueID_SringOfLeagueID', async () => {
+    const leagueName = 'SQA²'
+    const expectedLeagueId = '194346'
+    const loggedInUserMock = await nbaData.getPlayerLeagues().then(resp => (resp))
+    console.log(loggedInUserMock)
+    const leagueId = nbaUtils.getPlayersNbaLeagueId(loggedInUserMock, leagueName)
+    console.log('getPlayersNbaLeagueId():\nExpected: ' + expectedLeagueId + '\nReceived: ' + leagueId)
+    expect(leagueId).toBe(expectedLeagueId)
   })
 })
 

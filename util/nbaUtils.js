@@ -4,7 +4,7 @@ const easternTime = momentTimeZone().tz('America/New_York')
 const sprintf = require('sprintf-js').sprintf
 
 // data is array (for now)
-// TODO: Investigate optimization in searching algorithm (Gabe: '.every' function)
+// TODO CHF-21: Investigate optimization in searching algorithm (Gabe: '.every' function) 
 
 /**
  * @param {Object[]} data JSON object of all nba players
@@ -90,7 +90,7 @@ const getGamesInWeek = function (data, daysInWeek) {
  */
 const getDaysPlayedOn = function (data, lastPlayedIndex, daysInWeek) {
   let datesPlayed = []
-  /// TODO invalid date issue could occur here fix if happens
+  /// TODO CHF-22 invalid date issue could occur here fix if happens
   data.slice(lastPlayedIndex).forEach(game => {
     let gameDate = game.startDateEastern
     if (gameDate >= daysInWeek[0] && gameDate <= daysInWeek[6]) {

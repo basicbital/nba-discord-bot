@@ -89,17 +89,30 @@ describe('../util/nbaUtils', () => {
 
 jest.unmock('../../api/nbaData')
 describe('../api/nbaData.js', () => {
+  let teamId = '1610612737'
   test('GetNbaYear_NoParam_ReturnsAYear', async () => {
     let received = await nbaData.getNbaYear().then(resp => (resp))
     console.log('Year received from nba.net: ' + received)
     expect(typeof received).toBe('number')
   })
 
-  test('GetTeamSchedule_GivenTeamID_FieldSeasonStageID', async () => {
-    let teamId = '1610612737'
+  test('GetPlayers_NoParam_FirstNameField', async () => {
+    let received = await nbaData.getPlayers().then(resp => (resp))
+    console.log('Object.keys(received.slice(0)[0])[0] should return the first field in standard... firstName')
+    expect(Object.keys(received.slice(0)[0])[0]).toBe('firstName')
+  })
+
+  test('GetTeamSchedule_GivenTeamID_FieldSeasonStageIDField', async () => {
+    console.log('teamId give: ' + teamId)
     let received = await nbaData.getTeamSchedule(teamId).then(resp => (resp))
     // received gets all data for standard
     console.log('Object.keys(received.slice(0)[0])[0]) should return the first field in standard index 0, which is seasonStageId')
     expect(Object.keys(received.slice(0)[0])[0]).toBe('seasonStageId')
+  })
+
+  test('GetLastPlayedIndex_GivenTeamID_NumberIndex', async () => {
+    let received = await nbaData.getLastPlayedIndex(teamId).then(resp => (resp))
+    console.log('Received is: ' + received)
+    expect(typeof received).toBe('number')
   })
 })

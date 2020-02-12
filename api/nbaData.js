@@ -18,7 +18,7 @@ const getNbaYear = function () {
  * @return {Promise<pending>} All nba players
  */
 const getPlayers = async function () {
-  let nbaYear = await getNbaYear().then(resp =>(resp))
+  let nbaYear = await getNbaYear().then(resp => (resp))
   return fetch(`http://data.nba.net/10s/prod/v1/${nbaYear}/players.json`)
     .then(res => {
       return res.json()

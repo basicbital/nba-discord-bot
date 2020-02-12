@@ -26,7 +26,7 @@ dotenv.config()
 const createRosterDateMap = async function () {
   const moment = require('moment')
   let allRosterData = await nbaData.getPlayers().then(resp => (resp))
-  /// TODO DELETE EVENTUALLY ===== HARD CODED DATA
+  /// TODO CHF-24 DELETE EVENTUALLY ===== HARD CODED DATA
   let token = await yahooData.getRefreshedToken(process.env.REFRESH_TOKEN).then(resp => (resp))
   let rosterData = await nbaData.getPlayerRoster(token.access_token, process.env.LEAGUE_ID, process.env.TEAM_ID).then(resp => (resp))
   let roster = nbaUtils.getAllPlayerNames(rosterData)
@@ -43,7 +43,7 @@ const createRosterDateMap = async function () {
   }]
 
   for (let index = 0; index < 7; index++) {
-    thisWeeksDates[0][index].push(moment().day(index).format('M-D-YY')) /// TODO what happens when Month is double digit?
+    thisWeeksDates[0][index].push(moment().day(index).format('M-D-YY')) /// TODO CHF-23 what happens when Month is double digit?
     /// Potential way to modify this to a generic return date for customizability?
   }
 

@@ -118,4 +118,9 @@ describe('../api/nbaData.js', () => {
     console.log('Received is: ' + received)
     expect(typeof received).toBe('number')
   })
+  test('GetFirstPlayer_NoParam_ReceiveNameString', async () => {
+    let received = await nbaData.getFirstPlayer().then(resp => (resp))
+    console.log('Received a name...: ' + received)
+    expect(typeof received).toBe('string')
+  })
 })

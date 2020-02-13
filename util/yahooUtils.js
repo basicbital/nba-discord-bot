@@ -1,5 +1,6 @@
 const yahooData = require('../api/yahooAuthData')
 const nbaData = require('../api/nbaData')
+const yahooUserData = require('../api/yahooUserData')
 const nbaUtils = require('../util/nbaUtils')
 /// For hardcoding
 const dotenv = require('dotenv')
@@ -28,7 +29,7 @@ const createRosterDateMap = async function () {
   let allRosterData = await nbaData.getPlayers().then(resp => (resp))
   /// TODO CHF-24 DELETE EVENTUALLY ===== HARD CODED DATA
   let token = await yahooData.getRefreshedToken(process.env.REFRESH_TOKEN).then(resp => (resp))
-  let rosterData = await nbaData.getPlayerRoster(token.access_token, process.env.LEAGUE_ID, process.env.TEAM_ID).then(resp => (resp))
+  let rosterData = await yahooUserData.getPlayerRoster(token.access_token, process.env.LEAGUE_ID, process.env.TEAM_ID).then(resp => (resp))
   let roster = nbaUtils.getAllPlayerNames(rosterData)
   /// DELETE AND REPLACE HARD CODED DATA
   let weekDates = nbaUtils.getDaysInWeek(moment().day('Monday'))

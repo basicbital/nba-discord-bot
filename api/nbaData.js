@@ -15,6 +15,22 @@ const getNbaYear = function () {
     })
 }
 /**
+ * @return {Promise<pending>} First name available from players.json
+ */
+const getFirstPlayer = async function () {
+  let nbaYear = await getNbaYear().then(resp => (resp))
+  return fetch(`http://data.nba.net/10s/prod/v1/${nbaYear}/players.json`)
+    .then(res => {
+      return res.json()
+    })
+    .then(response => {
+      return (response.league.standard)[0].firstName
+    })
+    .catch(err => {
+      console.log(`${err} Promise error`)
+    })
+}
+/**
  * @return {Promise<pending>} All nba players
  */
 const getPlayers = async function () {
@@ -117,6 +133,7 @@ const getPlayerLeagues = function (accessToken) {
 }
 
 module.exports.getNbaYear = getNbaYear
+module.exports.getFirstPlayer = getFirstPlayer
 module.exports.getPlayers = getPlayers
 module.exports.getPlayerRoster = getPlayerRoster
 module.exports.getTeamSchedule = getTeamSchedule

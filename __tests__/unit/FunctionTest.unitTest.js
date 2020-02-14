@@ -14,12 +14,17 @@ describe('../util/nbaUtils', () => {
     expect(teamId).toBe(expectedId)
   })
 
-  test('GetGamesInWeek_GivenJsonAndArrayOfWeekDays_Number', async () => {
+  test('GetGamesInWeek_GivenJsonAndArrayOfWeekDays_SameNumber', async () => {
+    // This function should return the number of games that a team is playing for some given week
     let teamId = '1610612737'
     const teamScheduleMock = await nbaData.getTeamSchedule(teamId).then(resp => (resp))
+    // days per our logic start on monday
+    // Monday 1st day
+    // Tuesday 2nd day
+    // and so on
     let daysInWeek = 7
     let days = []
-    let day = moment('2018-10-01')
+    let day = moment('2019-10-14') // a monday to make things easier
     for (let i = 0; i < daysInWeek; i++) {
       days.push(day.format('YYYYMMDD'))
       day.add(1, 'd')
@@ -28,6 +33,8 @@ describe('../util/nbaUtils', () => {
     let expected = 3
     console.log('getGamesInWeek: \nExpected: ' + expected + '\nReceived: ' + received)
     expect(received).toBe(expected)
+    // checking the json file http://data.nba.net/10s/prod/v1/2019/teams/1610612737/schedule.json
+    // which may or may not exist in the future shows that on that week team 1610612737 played 3 games
   })
 
   test('GetDaysPlayedOn_GivenJsonLastPlayedIndexArrayofDaysInWeek_ArrayWithObjects', async () => {

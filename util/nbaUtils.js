@@ -48,7 +48,7 @@ const getNextMonday = function () {
 }
 /**
  * @param {moment} monDate date of Monday
- * @return {number[]} 7 dates of current week starting on Monday
+ * @return {object} an array of numbers, 7 dates of current week starting on Monday
  */
 const getDaysInWeek = function (monDate) {
   let daysOfWeek = []

@@ -14,6 +14,31 @@ describe('../util/nbaUtils', () => {
     expect(teamId).toBe(expectedId)
   })
 
+  test('GetCurrentMonday_NoParam_ReturnNumberOne', () => {
+    // moments return indexed days a monday day is 1
+    let mondayIndex = nbaUtils.getCurrentMonday()
+    expect(mondayIndex.day()).toBe(1)
+  })
+
+  test('GetPrevmonday_NoParam_ReturnsMonday', () => {
+    // make sure that function returns a monday moment
+    let mondayIndex = nbaUtils.getPrevMonday()
+    expect(mondayIndex.day()).toBe(1)
+  })
+
+  test('GetNextMonday_NoParam_ReturnsMonday', () => {
+    // make sure that function returns a monday moment
+    let mondayIndex = nbaUtils.getPrevMonday()
+    expect(mondayIndex.day()).toBe(1)
+  })
+
+  test('GetDaysInWeek_AMondayDate_ReturnsAnArray', () => {
+    let array = nbaUtils.getDaysInWeek(moment().day('Monday'))
+    expect(typeof array).toBe('object')
+    expect(typeof array[0]).toBe('string')
+    // ultimately returns a string of unformatted date
+  })
+
   test('GetGamesInWeek_GivenJsonAndArrayOfWeekDays_SameNumber', async () => {
     // This function should return the number of games that a team is playing for some given week
     let teamId = '1610612737'
@@ -49,6 +74,15 @@ describe('../util/nbaUtils', () => {
     // actual could be zero if league player no longer has active players in his roster
     expect(typeof actual).toBe('object')
     expect(actual.length).toBe(3)
+  })
+
+  test('GetAllPlayersNames_GivenJsonData_ReturnsArrayWithNames', async () => {
+    let data = await nbaData.getPlayers().then(resp => (resp))
+    console.log('data: ' + data[0].firstName)
+    let playerArray = nbaUtils.getAllPlayerNames(data)
+    let firstName = playerArray[0].first
+    expect(typeof playerArray).toBe('object')
+    expect(firstName).toBe('string')
   })
 
   test('DisplayUserMap_PlayerDatePlayingDictionary_StringArrayFormattedContent', () => {
@@ -97,7 +131,8 @@ describe('../util/nbaUtils', () => {
   })
 })
 
-jest.unmock('../../api/nbaData')
+// jest.unmock('../../api/nbaData')
+// need to research how to unmock or might have to move these tests to a separate file
 describe('../api/nbaData.js', () => {
   let teamId = '1610612737'
   test('GetNbaYear_NoParam_ReturnsAYear', async () => {

@@ -4,14 +4,13 @@ const nbaData = require('../../api/nbaData')
 jest.mock('../../api/nbaData') // mock nbaData, folder __mocks__ needs to be in same directory as module
 
 describe('../util/nbaUtils', () => {
-  test('GetTeamId_GivenJsonFirstLastName_Number', async () => {
-    let firstName = 'Jaylen'
-    let lastName = 'Adams'
-    let expectedId = '1610612737'
+  test('GetTeamId_GivenJsonFirstLastName_String', async () => {
+    let playerData = await nbaData.getPlayers().then(resp => (resp))
+    let firstName = playerData[0].firstName
+    let lastName = playerData[0].lastName
     const playersMock = await nbaData.getPlayers().then(resp => (resp))
     const teamId = nbaUtils.getTeamId(playersMock, firstName, lastName)
-    console.log('getTeamId():\nExpected: ' + expectedId + '\nReceived: ' + teamId)
-    expect(teamId).toBe(expectedId)
+    expect(typeof teamId).toBe('string')
   })
 
   test('GetCurrentMonday_NoParam_ReturnNumberOne', () => {

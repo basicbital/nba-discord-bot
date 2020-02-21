@@ -1,40 +1,7 @@
-// const players = [{
-//   'firstName': 'Jaylen',
-//   'lastName': 'Adams',
-//   'personId': '1629121',
-//   'teamId': '1610612737',
-//   'jersey': '10',
-//   'isActive': true,
-//   'pos': 'G',
-//   'heightFeet': '6',
-//   'heightInches': '2',
-//   'heightMeters': '1.88',
-//   'weightPounds': '190',
-//   'weightKilograms': '86.2',
-//   'dateOfBirthUTC': '1996-05-04',
-//   'teams':
-//   [{ 'teamId': '1610612737',
-//     'seasonStart': '2018',
-//     'seasonEnd': '2018'
-//   }],
-//   'draft': {
-//     'teamId': '',
-//     'pickNum': '',
-//     'roundNum': '',
-//     'seasonYear': ''
-//   },
-//   'nbaDebutYear': '2018',
-//   'yearsPro': '0',
-//   'collegeName': 'St. Bonaventure',
-//   'lastAffiliation': 'St. Bonaventure/USA',
-//   'country': 'USA'
-// }]
-
-// const teamSchedule = [
-//   { 'startDateEastern': '20181001' },
-//   { 'startDateEastern': '20181003' },
-//   { 'startDateEastern': '20181004' }
-// ]
+// Mock Note:
+// unable to manually mock the data since data can change season to season
+// for now these two function will only gather a portion of the data from
+// nba.net and to be used in testing rather than pulling from api
 const fetch = require('node-fetch')
 const getRosterRaw = function () {
   return fetch('http://data.nba.net/10s/prod/v1/today.json')

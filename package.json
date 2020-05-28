@@ -8,6 +8,7 @@
     "test": "jest",
     "jest-unit-test": "jest -c ./__tests__/config/jest.config.unit.js",
     "jest-integrate-test": "jest -c ./__tests__/config/jest.config.integration.js",
+    "jest-nbaUtils-unit-test": "jest --detectOpenHandles ./__tests__/unit/NbaUtils.unitTest.js",
     "dev-test": "jest --detectOpenHandles ./__tests__/dev_test/",
     "lint": "standard --fix",
     "ho": "node app.js"

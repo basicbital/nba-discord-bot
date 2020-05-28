@@ -4,7 +4,7 @@ const nbaData = require('../../api/nbaData')
 jest.mock('../../api/nbaData') // mock nbaData, folder __mocks__ needs to be in same directory as module
 
 describe('../util/nbaUtils', () => {
-  test('GetTeamId_GivenJsonFirstLastName_String', async () => {
+  test('GetTeamId_GivenJsonFirstLastName_ReturnsString', async () => {
     let playerData = await nbaData.getPlayers().then(resp => (resp))
     let firstName = playerData[0].firstName
     let lastName = playerData[0].lastName
@@ -14,7 +14,7 @@ describe('../util/nbaUtils', () => {
   })
 
   test('GetCurrentMonday_NoParam_ReturnNumberOne', () => {
-    // moments return indexed days a monday day is 1
+    // moments return indexed days for monday as 1
     let mondayIndex = nbaUtils.getCurrentMonday()
     expect(mondayIndex.day()).toBe(1)
   })
@@ -27,7 +27,7 @@ describe('../util/nbaUtils', () => {
 
   test('GetNextMonday_NoParam_ReturnsMonday', () => {
     // make sure that function returns a monday moment
-    let mondayIndex = nbaUtils.getPrevMonday()
+    let mondayIndex = nbaUtils.getNextMonday()
     expect(mondayIndex.day()).toBe(1)
   })
 
@@ -127,6 +127,20 @@ describe('../util/nbaUtils', () => {
     const leagueId = nbaUtils.getPlayersNbaLeagueId(loggedInUserMock, leagueName)
     console.log('getPlayersNbaLeagueId():\nExpected: ' + expectedLeagueId + '\nReceived: ' + leagueId)
     expect(leagueId).toBe(expectedLeagueId)
+  })
+})
+describe('../api/yahooAuthData.js', () => {
+  test('GetInitialToken_GivenAuthCode_ReturnPromisePending', async () => {
+  })
+  test('GetRefreshToken_GivenRefreshToken_ReturnPromisePending', async () => {
+  })
+  test('GetAuthCode_NoParams_ReturnPromisePending', async () => {
+  })
+})
+describe('../api/yahooUserData.js', () => {
+  test('GetPlayerRoster_GivenAccessTokenLeagueIDTeamID_ReturnsPromisePending', async () => {
+  })
+  test('GetPlayerLeagues_GivenAcessToken_ReturnsPromisePending', async () => {
   })
 })
 

@@ -4,7 +4,7 @@ const easternTime = momentTimeZone().tz('America/New_York')
 const sprintf = require('sprintf-js').sprintf
 
 // data is array (for now)
-// TODO: Investigate optimization in searching algorithm (Gabe: '.every' function)
+// TODO CHF-21: Investigate optimization in searching algorithm (Gabe: '.every' function) 
 
 /**
  * @param {Object[]} data JSON object of all nba players
@@ -48,7 +48,7 @@ const getNextMonday = function () {
 }
 /**
  * @param {moment} monDate date of Monday
- * @return {number[]} 7 dates of current week starting on Monday
+ * @return {object} an array of numbers, 7 dates of current week starting on Monday
  */
 const getDaysInWeek = function (monDate) {
   let daysOfWeek = []
@@ -90,7 +90,7 @@ const getGamesInWeek = function (data, daysInWeek) {
  */
 const getDaysPlayedOn = function (data, lastPlayedIndex, daysInWeek) {
   let datesPlayed = []
-  /// TODO invalid date issue could occur here fix if happens
+  /// TODO CHF-22 invalid date issue could occur here fix if happens
   data.slice(lastPlayedIndex).forEach(game => {
     let gameDate = game.startDateEastern
     if (gameDate >= daysInWeek[0] && gameDate <= daysInWeek[6]) {
@@ -135,11 +135,11 @@ const getAllPlayerNames = function (data) {
 }
 
 /**
- * @param {string}  token user refresh token
- * @return {string[]}  full names of players in a yahoo user team
+ * @param {string}  playersPlayingThisWeek string key,value pairs mapping players to the date they play
+ * @return {string[]}  full names of players in a yahoo user team formatted
  */
 const displayUserMap = function (playersPlayingThisWeek) {
-  let retStr = '```'
+  let retStr = '```\n'
 
   // HARD CODED EXAMPLE TO PROCESS
   // const playersPlayingThisWeek = [{
@@ -151,22 +151,40 @@ const displayUserMap = function (playersPlayingThisWeek) {
   //   5: ['Saturday', 'val1', 'val2'],
   //   6: ['Sunday', 'val1', 'val2']
   // }]
-
+  const charMax = 10
   for (let index = 0; index < 7; index++) {
     var str = ''
     for (let data in playersPlayingThisWeek[0][index]) {
       let arrayLength = playersPlayingThisWeek[0][index].length - 1
-      if (data === '0') {
+      if (data === '0') { // name day
         // str = str + playersPlayingThisWeek[0][index][data] + '\t'
         let day = playersPlayingThisWeek[0][index][data]
         str = str + sprintf(`%1$' -12s`, `${day}`)
-      } else if (data === '1') {
+      } else if (data === '1') { // number date
         let date = playersPlayingThisWeek[0][index][data]
-        str = str + sprintf(`%1$' -10s`, `${date}`)
-      } else if (data === arrayLength.toString()) {
-        str = str + playersPlayingThisWeek[0][index][data] // truncate names doable here adjust with sprintf(s) check docs
-      } else {
-        str = str + playersPlayingThisWeek[0][index][data] + ', '
+        str = str + sprintf(`%1$' -12s`, `${date}`)
+      } else if (data === arrayLength.toString()) { // last Name in list, do not append comma
+        let fullName = playersPlayingThisWeek[0][index][data].split(/[ ]+/) // 1 or more spaces
+        let fName = fullName[0]
+        let lName = fullName[1]
+        if (fName.length > charMax) {
+          fName = fName.substring(0, charMax) + '...'
+        }
+        if (lName.length > charMax) {
+          lName = lName.substring(0, 1) + '.'
+        }
+        str = str + fName + ' ' + lName
+      } else { // append a comma
+        let fullName = playersPlayingThisWeek[0][index][data].split(/[ ]+/)
+        let fName = fullName[0]
+        let lName = fullName[1]
+        if (fName.length > charMax) {
+          fName = fName.substring(0, charMax) + '...'
+        }
+        if (lName.length > charMax) {
+          lName = lName.substring(0, 1) + '.'
+        }
+        str = str + fName + ' ' + lName + ', '
       }
     }
     retStr = retStr + str + '\r\n'

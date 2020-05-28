@@ -1,5 +1,6 @@
 const yahooData = require('../api/yahooAuthData')
 const nbaData = require('../api/nbaData')
+const yahooUserData = require('../api/yahooUserData')
 const nbaUtils = require('../util/nbaUtils')
 /// For hardcoding
 const dotenv = require('dotenv')
@@ -26,11 +27,12 @@ dotenv.config()
 const createRosterDateMap = async function (mondayStart) {
   const moment = require('moment')
   let allRosterData = await nbaData.getPlayers().then(resp => (resp))
-  /// TODO DELETE EVENTUALLY ===== HARD CODED DATA
+  /// TODO far future probably... these variables need to get tokens from ANY user
+  /// not just our process.env for that to occur tho, would require some restructuring
+  /// I'll submit a card to look into
   let token = await yahooData.getRefreshedToken(process.env.REFRESH_TOKEN).then(resp => (resp))
-  let rosterData = await nbaData.getPlayerRoster(token.access_token, process.env.LEAGUE_ID, process.env.TEAM_ID).then(resp => (resp))
+  let rosterData = await yahooUserData.getPlayerRoster(token.access_token, process.env.LEAGUE_ID, process.env.TEAM_ID).then(resp => (resp))
   let roster = nbaUtils.getAllPlayerNames(rosterData)
-  /// DELETE AND REPLACE HARD CODED DATA
   let weekDates = nbaUtils.getDaysInWeek(moment().day('Monday'))
    let thisWeeksDates = [{
     0: ['Monday'],

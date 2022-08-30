@@ -27,7 +27,7 @@
     "discord.js": "^11.4.2",
     "dotenv": "^7.0.0",
     "moment": "^2.24.0",
-    "moment-timezone": "^0.5.23",
+    "moment-timezone": "^0.5.35",
     "node-fetch": "^2.3.0",
     "sprintf-js": "^1.1.2"
   },
